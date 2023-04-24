@@ -1,0 +1,126 @@
+MySQL.txt
+Создание табдлиц 
+
+
+CREATE table salespeople(
+  snum INTEGER(10) PRIMARY KEY,
+  sname VARCHAR(100), 
+  city VARCHAR(100),
+  comm FLOAT(7,3));
+
+CREATE table customers(
+  cnum INTEGER(10) PRIMARY KEY,
+  cname VARCHAR(100), 
+  city VARCHAR(100),
+  rating INTEGER(10),
+  snum INTEGER(10),
+  FOREIGN KEY (snum) REFERENCES salespeople(snum));
+
+CREATE table orders(
+  onum INTEGER(10) NOT NULL AUTO_INCREMENT,
+  amt FLOAT(7,3),
+  odate DATE,
+  PRIMARY KEY (onum),
+  cnum INTEGER(10), 
+  snum INTEGER(10),
+  FOREIGN KEY (snum) REFERENCES salespeople(snum), 
+  FOREIGN KEY (cnum) REFERENCES customers(cnum));
+
+
+Заполнение
+
+INSERT INTO salespeople VALUES(1001,"Peel","London",0.12),
+(1002,"Serres","San Jose",0.13),(1004,"Motika","London",0.11),
+(1007,"Rifkin","Barcelona",0.15),(1003,"Axelrod","New York",0.10);
+
+INSERT INTO customers VALUES(2001,"Hoffman","London",100, 1001),
+(2002,"Giovanni","Rome",200, 1003),(2003,"Liu","San Jose",200, 1002),
+(2004,"Grass","Berlin",300, 1002),(2006,"Clemens","London",100, 1001),
+(2008,"Cisneros","San Jose",300, 1007),(2007,"Pereira","Rome",100, 1004);
+
+INSERT INTO orders VALUES(3001,18.69,'2021.03.10',2008,1007),
+(3003,767.19,'2021.03.10',2001,1001),(3002,1900.10,'2021.03.10',2007,1004),
+(3005,5160.45,'2021.03.10',2003,1002),(3006,1098.16,'2021.03.10',2008,1007),
+(3009,1713.23,'2021.04.10',2002,1003),(3007,75.75,'2021.04.10',2004,1002),
+(3008,4723.00,'2021.05.10',2006,1001),
+(3010,1309.95,'2021.06.10',2004,1003),(3011,9891.88,'2021.06.10',2006,1001);
+
+
+
+Модификация (6)
+
+ALTER TABLE salespeople RENAME salespeople1;
+
+ALTER TABLE salespeople1 CHANGE city city1 VARCHAR(100);
+
+ALTER TABLE salespeople1 CHANGE sname sname1 VARCHAR(100);
+
+ALTER TABLE salespeople1 ADD Naprav VARCHAR(100) AFTER sname1;
+
+UPDATE salespeople1 SET Naprav = 'молочная продукция' WHERE snum = 1001;
+UPDATE salespeople1 SET Naprav = 'алкогольная продукция' WHERE snum = 1002;
+UPDATE salespeople1 SET Naprav = 'табачные изделия' WHERE snum = 1003;
+UPDATE salespeople1 SET Naprav = 'мясная продукция' WHERE snum = 1004;
+UPDATE salespeople1 SET Naprav = 'соки-воды' WHERE snum = 1007;
+
+ALTER TABLE orders ADD Dostavka INTEGER(10) AFTER amt;
+
+UPDATE orders SET Dostavka = 300 WHERE onum = 3001;
+UPDATE orders SET Dostavka = 400 WHERE onum = 3002;
+UPDATE orders SET Dostavka = 450 WHERE onum = 3003;
+UPDATE orders SET Dostavka = 230 WHERE onum = 3005;
+UPDATE orders SET Dostavka = 530 WHERE onum = 3006;
+UPDATE orders SET Dostavka = 990 WHERE onum = 3007;
+UPDATE orders SET Dostavka = 1000 WHERE onum = 3008;
+UPDATE orders SET Dostavka = 1230 WHERE onum = 3009;
+UPDATE orders SET Dostavka = 350 WHERE onum = 3010;
+UPDATE orders SET Dostavka = 220 WHERE onum = 3011;
+
+ALTER TABLE orders ADD Oplata VARCHAR(50) AFTER Dostavka
+
+UPDATE orders SET Oplata = 'Наличными' WHERE onum IN (3001, 3003, 3005, 3008, 3010);
+UPDATE orders SET Oplata = 'Безнал' WHERE onum NOT IN (3001, 3003, 3005, 3008, 3010);
+
+ALTER TABLE customers ADD pol VARCHAR(100) AFTER cname;
+
+UPDATE customers SET pol = 'Муж' WHERE customers.cnum IN (2001, 2003, 2008);
+UPDATE customers SET pol = 'Жен' WHERE customers.cnum NOT IN (2001, 2003, 2008);
+
+UPDATE customers SET city = 'Paris' WHERE city = 'London'
+
+UPDATE salespeople1 SET comm = 0.16 WHERE comm > 0.12;
+
+DELETE FROM orders WHERE onum = 3011;
+
+ALTER TABLE salespeople1 RENAME salespeople;
+ALTER TABLE salerpeople CHANGE sname1 sname VARCHAR(100);
+ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
+
+
+Условные операторы (Выборка) (7)
+
+Часть 1
+
+1)SELECT DISTINCT city FROM customers;
+2)SELECT DISTINCT rating FROM customers;
+3)SELECT DISTINCT comm FROM salespeople;
+4)SELECT * FROM salespeople WHERE city = 'London';
+5)SELECT * FROM salespeople WHERE comm > 0.12;
+6)SELECT * FROM customers WHERE city = 'Rome';
+7)SELECT * FROM customers WHERE rating IN (100, 300);
+8)SELECT * FROM orders WHERE amt < 1000;
+9)SELECT * FROM customers WHERE rating = 200 AND city = "Rome"
+10)SELECT * FROM customers WHERE rating = 300 OR city = "Berlin";
+
+Часть 2
+
+1)
+2)
+3)
+4)
+5)
+6)
+7)
+8)
+9)
+10)
