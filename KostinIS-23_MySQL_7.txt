@@ -101,7 +101,7 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 
 Часть 1
 
-1)SELECT DISTINCT city FROM customers;
+1)CREATE VIEW v71 AS SELECT DISTINCT city FROM customers;
 2)SELECT DISTINCT rating FROM customers;
 3)SELECT DISTINCT comm FROM salespeople;
 4)SELECT * FROM salespeople WHERE city = 'London';
@@ -114,13 +114,13 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 
 Часть 2
 
-1)
-2)
-3)
-4)
-5)
-6)
-7)
-8)
-9)
-10)
+1)SELECT * FROM customers WHERE snum IN(1001, 1002, 1007);
+2)SELECT * FROM orders WHERE cnum IN(2001, 2004, 2008);
+3)SELECT * FROM salespeople WHERE snum BETWEEN 1001 AND 1005;
+4)SELECT * FROM salespeople WHERE comm BETWEEN 0.10 AND 0.13;
+5)SELECT * FROM customers WHERE cname BETWEEN 'A%' AND 'G%';
+6)SELECT * FROM customers WHERE city BETWEEN 'A%' AND 'L%';
+7)SELECT * FROM orders WHERE odate BETWEEN '2021-03-10' AND '2021-05-10';
+8)SELECT * FROM customers WHERE cname LIKE "C%";
+9)SELECT * FROM customers WHERE cname LIKE "G%";
+10)SELECT * FROM customers WHERE cname LIKE "G%s";
