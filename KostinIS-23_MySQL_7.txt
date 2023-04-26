@@ -134,7 +134,7 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 3)SELECT COUNT(*) AS 'Количество строк' FROM customers;
 4)SELECT SUM(rating) AS 'Общий рейтинг заказчиков' FROM customers;
 5)SELECT SUM(amt) AS 'Сумма заказов' FROM orders;
-6)SELECT ROUND(AVG(rating), 2) AS 'Средний рейтинг заказчиков' FROM customers;
+6)SELECT ROUND(AVG(rating)) AS 'Средний рейтинг заказчиков' FROM customers;
 7)SELECT ROUND(AVG(amt), 2) AS 'Средняя стоимость заказов' FROM orders;
 8)SELECT MIN(rating) AS 'Минимальный рейтинг заказчика' FROM customers
 9)SELECT MAX(comm) AS 'Максимальная комиссия продавца' FROM salespeople;
