@@ -124,3 +124,23 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 8)SELECT * FROM customers WHERE cname LIKE "C%";
 9)SELECT * FROM customers WHERE cname LIKE "G%";
 10)SELECT * FROM customers WHERE cname LIKE "G%s";
+
+
+8 ПЗ
+
+
+1)SELECT COUNT(*) AS 'Количество продавцов' FROM salespeople;
+2)SELECT COUNT(DISTINCT city) AS 'Города продавцов' FROM salespeople;
+3)SELECT COUNT(*) AS 'Количество строк' FROM customers;
+4)SELECT SUM(rating) AS 'Общий рейтинг заказчиков' FROM customers;
+5)SELECT SUM(amt) AS 'Сумма заказов' FROM orders;
+6)SELECT ROUND(AVG(rating), 2) AS 'Средний рейтинг заказчиков' FROM customers;
+7)SELECT AVG(amt) AS 'Средняя стоимость заказов' FROM orders;
+8)SELECT MIN(rating) AS 'Минимальный рейтинг заказчика' FROM customers
+9)SELECT MAX(comm) AS 'Максимальная комиссия продавца' FROM salespeople;
+10)SELECT SUM(amt) + SUM(dostavka) AS 'Общая стоимость заказа' FROM orders;
+10.2)SELECT amt + dostavka AS 'Общая стоимость заказа' FROM orders;
+11)SELECT cname, city, ROUND(rating/50, 2) AS 'rating' FROM customers;
+12)SELECT sname, city, ROUND(SIN(comm) * 10, 2) AS 'comm' FROM salespeople;
+13)SELECT 'номер заказчика - ', snum, sname, city FROM salespeople;
+14)SELECT 'номер заказчика - ', snum, sname, city, 'комиссия, %', comm FROM salespeople;
