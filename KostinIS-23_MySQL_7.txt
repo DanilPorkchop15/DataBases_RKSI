@@ -144,3 +144,27 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 12)SELECT sname, city, ROUND(SIN(comm) * 10, 2) AS 'comm' FROM salespeople;
 13)SELECT 'номер заказчика - ', snum, sname, city FROM salespeople;
 14)SELECT 'номер заказчика - ', snum, sname, city, 'комиссия, %', comm FROM salespeople;
+
+
+9 ПЗ
+
+Часть 1
+
+1)SELECT COUNT(DISTINCT city) FROM customers WHERE city IS NOT NULL;
+2)SELECT cnum, MIN(amt) FROM orders GROUP BY cnum;
+3)SELECT snum, odate, MIN(amt) FROM orders GROUP BY snum, odate;
+4)SELECT cnum , MIN(amt) FROM orders WHERE cnum IN (SELECT cnum FROM customers WHERE cname IN ('Cisneros', 'Grass', 'Clemens')) GROUP BY cnum;
+5)SELECT cname FROM customers WHERE cname LIKE 'G%' ORDER BY cname;
+6)SELECT city, MAX(rating) FROM customers GROUP BY city;
+7)SELECT odate, COUNT(DISTINCT snum) FROM orders GROUP BY odate;
+8)SELECT snum, COUNT(odate) FROM orders GROUP BY snum;
+
+Часть 2
+
+1)
+2)
+3)
+4)
+5)
+6)
+7)SELECT city, COUNT(rating) FROM customers GROUP BY city ORDER BY 2;
