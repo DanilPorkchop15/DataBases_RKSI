@@ -153,7 +153,7 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 1)SELECT COUNT(DISTINCT city) AS 'Количество городов' FROM customers WHERE city IS NOT NULL;
 2)SELECT cnum, MIN(amt) AS 'Минимальная стоимость' FROM orders GROUP BY cnum;
 3)SELECT snum, odate, MIN(amt) AS 'Минимальная стоимость' FROM orders GROUP BY snum, odate;
-4)SELECT cnum , MIN(amt) AS 'Минимальная стоимость' FROM orders GROUP BY cnum HAVING cnum IN (SELECT cnum FROM customers WHERE cname IN ('Cisneros', 'Grass', 'Clemens')) GROUP BY cnum;
+4)SELECT cnum , MIN(amt) AS 'Минимальная стоимость' FROM orders GROUP BY cnum HAVING cnum IN (SELECT cnum FROM customers WHERE cname IN ('Cisneros', 'Grass', 'Clemens')) ;
 5)SELECT cname FROM customers WHERE cname LIKE 'G%' ORDER BY cname;
 6)SELECT city, MAX(rating) AS 'Максимальный рейтинг' FROM customers GROUP BY city;
 7)SELECT odate, COUNT(DISTINCT snum) AS 'Количество продавцов' FROM orders GROUP BY odate;
@@ -172,8 +172,8 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 
 10 ПЗ
 
-1)SELECT sname, cname, amt FROM salespeople, customers, orders WHERE salespeople.snum = customers.snum AND salespeople.snum = orders.snum AND amt BETWEEN 700 AND 2000 
-2)SELECT cname, amt-amt*comm FROM salespeople, customers, orders WHERE salespeople.snum = customers.snum AND salespeople.snum = orders.snum; 
+1)SELECT sname, cname, amt FROM salespeople, customers, orders WHERE salespeople.snum = orders.snum AND customers.cnum = orders.cnum AND amt BETWEEN 700 AND 2000;
+2)SELECT sname, amt-amt*comm FROM salespeople, customers, orders WHERE salespeople.snum = orders.snum AND customers.cnum = orders.cnum;
 3)SELECT cname, sname FROM salespeople, customers WHERE salespeople.snum = customers.snum;
 4)SELECT cname, sname, salespeople.city FROM salespeople, customers WHERE salespeople.city = customers.city
 5)SELECT odate, comm FROM orders, salespeople WHERE orders.snum = salespeople.snum AND comm < 0.12
@@ -181,4 +181,4 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 7)SELECT DISTINCT cname, odate FROM customers, orders WHERE customers.cnum = orders.cnum AND odate = '2021-03-10';
 8)SELECT cname, amt, comm, odate FROM orders, salespeople, customers WHERE orders.snum = salespeople.snum AND orders.cnum=customers.cnum AND odate = '2021-04-10'
 9)SELECT cname, rating, amt, odate FROM orders, customers WHERE orders.cnum=customers.cnum AND amt>3000 AND odate='2021-03-10'
-10)SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND customers.city = 'San Jose'
+10)SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum  AND customers.city = 'San Jose' AND salespeople.city = 'San Jose'
