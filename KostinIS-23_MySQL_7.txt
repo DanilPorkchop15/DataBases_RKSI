@@ -168,3 +168,17 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 5)SELECT sname, city FROM salespeople GROUP BY city ORDER BY sname;
 6)SELECT cname, city, rating FROM customers GROUP BY 2;
 7)SELECT city, COUNT(rating) AS 'Количество рейтингов' FROM customers GROUP BY city ORDER BY 2;
+
+
+10 ПЗ
+
+10_1 -- SELECT sname, cname, amt FROM salespeople, customers, orders WHERE salespeople.snum = customers.snum AND salespeople.snum = orders.snum AND amt BETWEEN 700 AND 2000 
+10_2 -- SELECT cname, amt-amt*comm FROM salespeople, customers, orders WHERE salespeople.snum = customers.snum AND salespeople.snum = orders.snum; 
+10_3 -- SELECT cname, sname FROM salespeople, customers WHERE salespeople.snum = customers.snum;
+10_4 -- SELECT cname, sname, salespeople.city FROM salespeople, customers WHERE salespeople.city = customers.city
+10_5 -- SELECT odate, comm FROM orders, salespeople WHERE orders.snum = salespeople.snum AND comm < 0.12
+10_6 -- SELECT amt, rating FROM customers, orders WHERE customers.cnum = orders.cnum AND rating > 100
+10_7 -- SELECT DISTINCT cname, odate FROM customers, orders WHERE customers.cnum = orders.cnum AND odate = '2021-03-10';
+10_8 -- SELECT cname, amt, comm, odate FROM orders, salespeople, customers WHERE orders.snum = salespeople.snum AND orders.cnum=customers.cnum AND odate = '2021-04-10'
+10_9 -- SELECT cname, rating, amt, odate FROM orders, customers WHERE orders.cnum=customers.cnum AND amt>3000 AND odate='2021-03-10'
+10_10 -- SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum AND orders.snum = salespeople.snum AND customers.city = 'San Jose'
