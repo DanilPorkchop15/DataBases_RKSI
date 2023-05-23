@@ -182,3 +182,21 @@ ALTER TABLE salerpeople CHANGE city1 city VARCHAR(100);
 8)SELECT cname, amt, comm, odate FROM orders, salespeople, customers WHERE orders.snum = salespeople.snum AND orders.cnum=customers.cnum AND odate = '2021-04-10'
 9)SELECT cname, rating, amt, odate FROM orders, customers WHERE orders.cnum=customers.cnum AND amt>3000 AND odate='2021-03-10'
 10)SELECT onum, sname, cname, customers.city FROM orders, salespeople, customers WHERE orders.cnum = customers.cnum  AND customers.city = 'San Jose' AND salespeople.city = 'San Jose'
+
+11 ПЗ
+
+1)SELECT * FROM orders WHERE cnum = (SELECT cnum FROM customers WHERE cname = "Hoffman");
+2)SELECT * FROM orders WHERE snum = (SELECT snum FROM salespeople WHERE city = "New York"); 
+3)SELECT * FROM customers WHERE snum = (SELECT snum FROM salespeople WHERE sname = "Motika");
+4)SELECT * FROM salespeople WHERE snum = (SELECT snum FROM customers WHERE cname = "Liu");
+5)SELECT * FROM customers WHERE cnum = (SELECT cnum FROM customers WHERE city = "Rome" AND rating = 100);
+
+12 ПЗ 
+
+1.1)SELECT cname, rating,ROUND(AVG(amt), 2) AS "Средняя стоимость заказа" FROM customers, orders WHERE customers.cnum = orders.cnum GROUP BY cname;
+1.2)SELECT cname, rating, ROUND((SELECT AVG(orders.amt), 2) AS "Средняя стоимость заказа" FROM orders WHERE orders.cnum = customers.cnum) FROM customers;
+2)SELECT cname, city, rating FROM customers WHERE rating < (SELECT AVG(rating) FROM customers);
+3)SELECT comm FROM salespeople WHERE snum IN (SELECT snum FROM customers WHERE city = "Paris");
+4)SELECT COUNT(*) AS "Количество заказов с суммой приобретения ниже среднего" FROM orders WHERE amt < (SELECT AVG(amt) FROM orders) AND odate = "2021-03-10";
+5)SELECT * FROM salespeople WHERE snum = (SELECT cnum FROM customers WHERE city = "Berlin") - 1000;
+6)SELECT snum, (SELECT SUM(amt) FROM orders WHERE orders.snum = salespeople.snum) AS sum_amt FROM salespeople WHERE (SELECT SUM(amt) FROM orders WHERE orders.snum = salespeople.snum) > (SELECT MAX(amt) FROM orders);
