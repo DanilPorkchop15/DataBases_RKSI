@@ -256,7 +256,7 @@ UNION
 
 14 ПЗ
 
-1CREATE VIEW v14_1 AS )SELECT * FROM orders WHERE odate BETWEEN '2021-03-1' AND '2021-04-30';
+1CREATE VIEW v14_1 AS SELECT * FROM orders WHERE odate BETWEEN '2021-03-1' AND '2021-04-30';
 2)CREATE VIEW v14_2 AS SELECT * FROM customers WHERE rating = (SELECT MAX(rating) FROM customers);
 3)CREATE VIEW v14_3 AS SELECT sname, cname, ROUND(AVG(amt), 2) AS 'Средняя стоимость', MAX(amt) AS 'Максимальная стоимость' FROM  salespeople, orders, customers WHERE salespeople.snum = orders.snum AND customers.cnum = orders.cnum GROUP BY sname, cname;
 4)CREATE VIEW v14_4 AS SELECT city, COUNT(*) AS 'Количество продавцов' FROM salespeople GROUP BY city;
