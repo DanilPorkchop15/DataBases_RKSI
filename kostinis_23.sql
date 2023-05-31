@@ -27,6 +27,36 @@ SET time_zone = "+00:00";
 -- Структура таблицы `customers`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+
+--
+-- Структура таблицы `salespeople`
+--
+
+CREATE TABLE `salespeople` (
+  `snum` int NOT NULL,
+  `sname` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `naprav` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `city` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `comm` float(3,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `salespeople`
+--
+
+INSERT INTO `salespeople` (`snum`, `sname`, `naprav`, `city`, `comm`) VALUES
+(1001, 'Peel', 'табачные изделия', 'London', 0.12),
+(1002, 'Serres', 'молочная продукция', 'San Jose', 0.16),
+(1003, 'Axelrod', 'колбасная продукция', 'New York', 0.10),
+(1004, 'Motika', 'мясная продукция', 'London', 0.11),
+(1007, 'Rifkin', 'алкогольная продукция', 'Barcelona', 0.16);
+
 CREATE TABLE `customers` (
   `cnum` int NOT NULL,
   `cname` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -52,12 +82,8 @@ INSERT INTO `customers` (`cnum`, `cname`, `pol`, `city`, `rating`, `snum`) VALUE
 (2007, 'Pereira', 'м', 'Rome', 100, 1004),
 (2008, 'Cisneros', 'м', 'San Jose', 300, 1007);
 
+
 -- --------------------------------------------------------
-
---
--- Структура таблицы `orders`
---
-
 CREATE TABLE `orders` (
   `onum` int NOT NULL,
   `amt` float(10,2) DEFAULT NULL,
@@ -86,31 +112,6 @@ INSERT INTO `orders` (`onum`, `amt`, `dostavka`, `oplata`, `odate`, `cnum`, `snu
 (3008, 4723.00, 7644, 'безналичный', '2021-05-10', 2006, 1001),
 (3009, 1713.23, 5392, 'безналичный', '2021-04-10', 2002, 1003),
 (3010, 1309.95, 1240, ' наличный', '2021-06-10', 2004, 1002);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `salespeople`
---
-
-CREATE TABLE `salespeople` (
-  `snum` int NOT NULL,
-  `sname` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `naprav` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `city` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `comm` float(3,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Дамп данных таблицы `salespeople`
---
-
-INSERT INTO `salespeople` (`snum`, `sname`, `naprav`, `city`, `comm`) VALUES
-(1001, 'Peel', 'табачные изделия', 'London', 0.12),
-(1002, 'Serres', 'молочная продукция', 'San Jose', 0.16),
-(1003, 'Axelrod', 'колбасная продукция', 'New York', 0.10),
-(1004, 'Motika', 'мясная продукция', 'London', 0.11),
-(1007, 'Rifkin', 'алкогольная продукция', 'Barcelona', 0.16);
 
 -- --------------------------------------------------------
 
