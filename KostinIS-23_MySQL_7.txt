@@ -1,49 +1,69 @@
 MySQL.txt
-Создание табдлиц 
+Создание и заполнениетаблиц 
 
 
-CREATE table salespeople(
-  snum INTEGER(10) PRIMARY KEY,
-  sname VARCHAR(100), 
-  city VARCHAR(100),
-  comm FLOAT(7,3));
+CREATE TABLE `salespeople` (
+  `snum` int NOT NULL,
+  `sname` varchar(30) ,
+  `naprav` varchar(30) ,
+  `city` varchar(30) ,
+  `comm` float(3,2),
+  PRIMARY KEY(snum)
+);
 
-CREATE table customers(
-  cnum INTEGER(10) PRIMARY KEY,
-  cname VARCHAR(100), 
-  city VARCHAR(100),
-  rating INTEGER(10),
-  snum INTEGER(10),
-  FOREIGN KEY (snum) REFERENCES salespeople(snum));
+INSERT INTO `salespeople` (`snum`, `sname`, `naprav`, `city`, `comm`) VALUES
+(1001, 'Peel', 'табачные изделия', 'London', 0.12),
+(1002, 'Serres', 'молочная продукция', 'San Jose', 0.16),
+(1003, 'Axelrod', 'колбасная продукция', 'New York', 0.10),
+(1004, 'Motika', 'мясная продукция', 'London', 0.11),
+(1007, 'Rifkin', 'алкогольная продукция', 'Barcelona', 0.16);
 
-CREATE table orders(
-  onum INTEGER(10) NOT NULL AUTO_INCREMENT,
-  amt FLOAT(7,3),
-  odate DATE,
-  PRIMARY KEY (onum),
-  cnum INTEGER(10), 
-  snum INTEGER(10),
-  FOREIGN KEY (snum) REFERENCES salespeople(snum), 
-  FOREIGN KEY (cnum) REFERENCES customers(cnum));
+CREATE TABLE `customers` (
+  `cnum` int NOT NULL,
+  `cname` varchar(30),
+  `pol` varchar(30),
+  `city` varchar(30),
+  `rating` int ,
+  `snum` int , 
+  PRIMARY KEY(cnum),
+  FOREIGN KEY (snum) REFERENCES salespeople(snum)
+  
+);
+
+INSERT INTO `customers` (`cnum`, `cname`, `pol`, `city`, `rating`, `snum`) VALUES
+(2001, 'Hoffman', 'м', 'Paris', 100, 1001),
+(2002, 'Giovanni', 'м', 'Rome', 200, 1003),
+(2003, 'Liu', 'ж', 'San Jose', 200, 1002),
+(2004, 'Grass', 'м', 'Berlin', 300, 1002),
+(2006, 'Clemens', 'ж', 'Paris', 100, 1001),
+(2007, 'Pereira', 'м', 'Rome', 100, 1004),
+(2008, 'Cisneros', 'м', 'San Jose', 300, 1007);
 
 
-Заполнение
+CREATE TABLE `orders` (
+  `onum` int NOT NULL,
+  `amt` float(10,2) ,
+  `dostavka` int ,
+  `oplata` varchar(30) ,
+  `odate` date ,
+  `cnum` int ,
+  `snum` int ,
+  PRIMARY KEY(onum),
+  FOREIGN KEY (cnum) REFERENCES customers(cnum),
+  FOREIGN KEY (snum) REFERENCES salespeople(snum)
 
-INSERT INTO salespeople VALUES(1001,"Peel","London",0.12),
-(1002,"Serres","San Jose",0.13),(1004,"Motika","London",0.11),
-(1007,"Rifkin","Barcelona",0.15),(1003,"Axelrod","New York",0.10);
+);
 
-INSERT INTO customers VALUES(2001,"Hoffman","London",100, 1001),
-(2002,"Giovanni","Rome",200, 1003),(2003,"Liu","San Jose",200, 1002),
-(2004,"Grass","Berlin",300, 1002),(2006,"Clemens","London",100, 1001),
-(2008,"Cisneros","San Jose",300, 1007),(2007,"Pereira","Rome",100, 1004);
-
-INSERT INTO orders VALUES(3001,18.69,'2021.03.10',2008,1007),
-(3003,767.19,'2021.03.10',2001,1001),(3002,1900.10,'2021.03.10',2007,1004),
-(3005,5160.45,'2021.03.10',2003,1002),(3006,1098.16,'2021.03.10',2008,1007),
-(3009,1713.23,'2021.04.10',2002,1003),(3007,75.75,'2021.04.10',2004,1002),
-(3008,4723.00,'2021.05.10',2006,1001),
-(3010,1309.95,'2021.06.10',2004,1003),(3011,9891.88,'2021.06.10',2006,1001);
+INSERT INTO `orders` (`onum`, `amt`, `dostavka`, `oplata`, `odate`, `cnum`, `snum`) VALUES
+(3001, 18.69, 1000, ' наличный', '2021-03-10', 2008, 1007),
+(3002, 1900.10, 2000, 'безналичный', '2021-03-10', 2007, 1004),
+(3003, 767.19, 2316, ' наличный', '2021-03-10', 2001, 1001),
+(3005, 5160.45, 1245, 'безналичный', '2021-03-10', 2003, 1003),
+(3006, 1098.16, 7654, ' наличный', '2021-03-10', 2008, 1007),
+(3007, 75.75, 4324, ' наличный', '2021-04-10', 2004, 1002),
+(3008, 4723.00, 7644, 'безналичный', '2021-05-10', 2006, 1001),
+(3009, 1713.23, 5392, 'безналичный', '2021-04-10', 2002, 1003),
+(3010, 1309.95, 1240, ' наличный', '2021-06-10', 2004, 1002);
 
 
 
