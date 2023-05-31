@@ -33,7 +33,10 @@ CREATE TABLE `customers` (
   `pol` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `city` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `rating` int DEFAULT NULL,
-  `snum` int DEFAULT NULL
+  `snum` int DEFAULT NULL, 
+  PRIMARY KEY('cnum'),
+  FOREIGN KEY ('snum') REFERENCES salepeople('snum')
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -62,7 +65,11 @@ CREATE TABLE `orders` (
   `oplata` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `odate` date DEFAULT NULL,
   `cnum` int DEFAULT NULL,
-  `snum` int DEFAULT NULL
+  `snum` int DEFAULT NULL,
+  PRIMARY KEY('onum'),
+  FOREIGN KEY ('cnum') REFERENCES customers('cnum'),
+  FOREIGN KEY ('snum') REFERENCES salespeople('snum')
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
