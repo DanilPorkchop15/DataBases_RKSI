@@ -265,3 +265,51 @@ UNION
 7)CREATE VIEW v14_7 AS SELECT onum, salespeople.snum, city FROM salespeople, orders WHERE salespeople.snum = orders.snum AND city = 'London';
 8)CREATE VIEW v14_8 AS SELECT salespeople.snum, sname, COUNT(DISTINCT cnum) AS 'Количество заказчиков' FROM salespeople, customers WHERE salespeople.snum = customers.snum GROUP BY snum, sname HAVING COUNT(DISTINCT cnum) > 1;
 9)CREATE VIEW v14_9 AS SELECT salespeople.snum, sname, odate FROM salespeople, orders WHERE salespeople.snum = orders.snum AND odate BETWEEN '2021-04-1' AND '2021-04-30'
+
+15 ПЗ
+
+1)SELECT onum,sname,cname, amt FROM orders INNER JOIN salespeople USING (snum) INNER JOIN customers USING (cnum) WHERE amt BETWEEN 700 AND 2000;
+2)SELECT sname, SUM(amt)-SUM(amt)*comm FROM orders INNER JOIN salespeople USING (snum) GROUP BY sname;
+3)SELECT cname, sname FROM customers INNER JOIN salespeople USING(snum);
+4)SELECT cname, sname, salespeople.city FROM customers INNER JOIN salespeople USING(city);
+5)SELECT odate, comm FROM orders INNER JOIN salespeople USING(snum) WHERE comm < 0.12;
+6)SELECT amt, rating FROM orders INNER JOIN customers USING(cnum) WHERE rating > 100;
+7)SELECT DISTINCT cname, odate FROM orders INNER JOIN customers USING(cnum) WHERE odate = '2021-03-10';
+8)SELECT cname, amt, comm, odate FROM orders INNER JOIN salespeople USING(snum) INNER JOIN customers USING(cnum) WHERE odate = '2021-04-10';
+9)SELECT cname, rating, amt, odate FROM orders INNER JOIN customers USING(cnum) WHERE amt>3000 AND odate='2021-03-10';
+10)
+SELECT onum, sname, cname, customers.city
+FROM orders
+INNER JOIN customers USING(cnum)
+INNER JOIN salespeople ON customers.city = salespeople.city
+WHERE customers.city = 'San Jose' AND salespeople.city = 'San Jose';
+
+
+16 ПЗ
+
+1)CREATE VIEW v16_1 AS SELECT sname, city FROM salespeople WHERE city = ANY(SELECT city FROM customers);
+
+2)CREATE VIEW v16_2 AS SELECT sname, comm, city FROM salespeople WHERE comm > ALL(SELECT comm FROM salespeople WHERE city = 'London');
+
+3)CREATE VIEW v16_3 AS SELECT * FROM orders WHERE amt < ALL(SELECT amt FROM orders WHERE odate = '2021-04-10');
+
+4)CREATE VIEW v16_4 AS SELECT snum, SUM(amt) FROM orders GROUP BY snum HAVING SUM(amt) >= ALL(SELECT SUM(amt) FROM orders GROUP BY snum);
+
+5)CREATE VIEW v16_5 AS SELECT orders.snum, sname, SUM(amt) FROM orders JOIN salespeople USING(snum) GROUP BY snum HAVING SUM(amt) >= ALL(SELECT SUM(amt) FROM orders GROUP BY snum);
+
+17 ПЗ
+1)CREATE USER 'gruber_user'@'localhost' IDENTIFIED BY '12345';
+2)GRANT SELECT ON DanilIS23.orders TO 'gruber_user'@'localhost';
+GRANT SELECT ON DanilIS23.salespeople TO 'gruber_user'@'localhost';
+FLUSH PRIVILEGES;
+3)SELECT * FROM salespeople ;
+4)GRANT INSERT ON DanilIS23.orders TO 'gruber_user'@'localhost';
+FLUSH PRIVILEGES;
+5)INSERT INTO DanilIS23.orders VALUES (3011, 213.99, 444, 'безналичный', '2021-07-10', 2003, 1002);
+6)REVOKE SELECT ON DanilIS23.orders FROM 'gruber_user'@'localhost';
+FLUSH PRIVILEGES;
+7)GRANT UPDATE ON DanilIS23.customers TO 'gruber_user'@'localhost';
+FLUSH PRIVILEGES;
+8)REVOKE UPDATE ON DanilIS23.customers FROM 'gruber_user'@'localhost';
+FLUSH PRIVILEGES;
+9)DROP USER 'gruber_user'@'localhost';
